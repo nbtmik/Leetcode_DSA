@@ -1,0 +1,45 @@
+//Divide and conquer
+class Solution {
+    public int maxCrossingSubarray(int[] nums, int low, int mid, int high) {
+        int left_sum = Integer.MIN_VALUE;
+        int sum = 0;
+        for (int i = mid; i >= low; i--) {
+            sum += nums[i];
+            if (sum > left_sum) {
+                left_sum = sum;
+            }
+        }
+
+        int right_sum = Integer.MIN_VALUE;
+        sum = 0;
+        for (int i = mid + 1; i <= high; i++) {
+            sum += nums[i];
+            if (sum > right_sum) {
+                right_sum = sum;
+            }
+        }
+
+        return left_sum + right_sum;
+    }
+
+    public int maxSubArrayHelper(int[] nums, int low, int high) {
+        if (low == high) {
+            return nums[low];
+        }
+
+        int mid = (low + high) / 2;
+
+        int left_max = maxSubArrayHelper(nums, low, mid);
+        int right_max = maxSubArrayHelper(nums, mid + 1, high);
+        int cross_max = maxCrossingSubarray(nums, low, mid, high);
+
+        return Math.max(Math.max(left_max, right_max), cross_max);
+    }
+
+    public int maxSubArray(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        return maxSubArrayHelper(nums, 0, nums.length - 1);
+    }
+}
