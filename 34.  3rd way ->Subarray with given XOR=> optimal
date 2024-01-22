@@ -1,0 +1,23 @@
+//optimal=> hashmap
+public class Solution {
+    public int solve(int[] A, int B) {
+        int n = A.length;
+        int cnt =0;
+        int xr =0;
+        Map<Integer, Integer> mp = new HashMap<>();
+        mp.put(xr,1);
+        for(int i=0;i<n;i++){
+            xr = xr ^ A[i];
+            int x = xr ^ B;
+            if(mp.containsKey(x)){
+                cnt+=mp.get(x);
+            }
+            if(mp.containsKey(xr)){
+                mp.put(xr,mp.get(xr)+1);
+            }else{
+                mp.put(xr,1);
+            }
+        }
+        return cnt;
+    }
+}
