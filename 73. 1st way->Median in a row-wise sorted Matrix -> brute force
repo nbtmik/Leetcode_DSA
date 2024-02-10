@@ -1,0 +1,16 @@
+import java.util.Arrays;
+
+public final class Solution {
+    public static int findMedian(int matrix[][], int m, int n) {
+        int[] median = new int[m*n];
+        int index=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                median[index]=matrix[i][j];
+                index++; 
+            }
+        }
+        Arrays.sort(median);
+        return median[(m*n)/2];
+    }
+}
