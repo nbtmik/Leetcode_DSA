@@ -1,0 +1,40 @@
+import java.util.*;
+public class Solution{
+
+    static class Stack {
+             int size;
+             int top;
+             int[] arr;
+        Stack(int capacity) {
+            size=capacity;
+            arr = new int[size];
+            top=-1;
+
+        }
+        public void push(int num) {
+            arr[++top]=num;
+        }
+        public int pop() {
+            int num = arr[top];
+            top--;
+            return num;
+        }
+        public int top() {
+            return arr[top];
+        }
+        public int isEmpty() {
+             if(top==-1){
+                 return 1;
+             }else{
+                 return 0;
+             }
+        }
+        public int isFull() {
+            if(top == size-1){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+    }
+}
