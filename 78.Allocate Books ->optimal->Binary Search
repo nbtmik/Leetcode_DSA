@@ -1,0 +1,47 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static long ayushGivesNinjatest(int m , int n ,int[] time) {
+        if(m>n){
+            return -1;
+        }
+        int totalpage=0;
+        int  maxpage=0;
+        for(int i=0;i<n;i++){
+            totalpage+=time[i];
+            maxpage=Math.max(maxpage,time[i]);
+        }
+        int low=maxpage;
+        int high = totalpage;
+        int result =-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(isValid(time,n,m,mid)){
+                result=mid;
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return result;
+    }
+    private static boolean isValid(int[] books, int n, int students, int maxPages) {
+        int studentsRequired = 1;
+        int pagesRead = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (pagesRead + books[i] > maxPages) {
+                studentsRequired++;
+                pagesRead = books[i];
+
+                if (studentsRequired > students) {
+                    return false;
+                }
+            } else {
+                pagesRead += books[i];
+            }
+        }
+
+        return true;
+}
+}
