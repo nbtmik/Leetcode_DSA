@@ -1,0 +1,32 @@
+public class Solution {
+    class Queue {
+        int front, rear;
+        int []arr;
+        int cnt;
+
+        Queue() {
+            front = 0;
+            rear = 0;
+            arr = new int[100001];
+            cnt =0;
+        }
+
+        // Enqueue (add) element 'e' at the end of the queue.
+        public void enqueue(int e) {
+            //if(cnt==100001) return -1;
+            arr[rear%100001]=e;
+            rear++;
+            cnt++;
+        }
+
+        // Dequeue (retrieve) the element from the front of the queue.
+        public int dequeue() {
+            if(cnt==0) return -1;
+            int popped=arr[front];
+            arr[front%100001]=-1;
+            front++;
+            cnt--;
+            return popped;
+        }
+    }
+}
