@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class Solution 
+{
+    public static ArrayList<Integer> getLeftView(TreeNode<Integer> root) 
+    {
+        ArrayList<Integer> result = new ArrayList<>();
+        leftview(root,result,0);
+        return result;
+    }
+
+    private static void leftview(TreeNode<Integer> cur, List<Integer> result, int curdepth){
+        if(cur==null){
+            return; 
+        }
+        if(curdepth==result.size()){
+            result.add(cur.data);
+        }
+        leftview(cur.left,result, curdepth+1);
+        leftview(cur.right,result, curdepth+1);
+    }
+}
