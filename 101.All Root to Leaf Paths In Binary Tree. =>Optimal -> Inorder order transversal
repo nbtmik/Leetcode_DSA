@@ -1,0 +1,23 @@
+class solution{
+    private boolean getpath(TreeMap root, ArrayList<Integer> arr, int x){
+        if(root==null){
+            return false;
+        }
+        arr.add(root.data);
+        if(root.data==x){
+            return true;
+        }
+        if(getpath(root.left,arr,x)||getpath(root.right,arr,x)){
+            return true;
+        }
+        arr.remove(arr.size()-1);
+        return false;
+    }
+
+    public ArrayList<Integer> solve(TreeMap a, int b){
+        ArrayList<Integer> arr = new ArrayList<>();
+        if(a==null) return arr;
+        getpath(a,arr,b);
+        return arr;
+    }
+}
