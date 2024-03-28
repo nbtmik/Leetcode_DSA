@@ -1,0 +1,33 @@
+class Solution 
+{ 
+    private static int knapsackh(int wt[],int val[],int ind,int W, int dp[][]){
+        if(ind==0){
+            if(wt[0]<=W){
+                return val[0];
+            } else{
+                return 0;
+            }
+        }
+        if(dp[ind][W] != -1){
+            return dp[ind][W];
+        }
+        int notTaken = 0 + knapsackh(wt,val,ind-1,W,dp);
+        
+        int Taken = Integer.MIN_VALUE;
+        
+        if(wt[ind]<=W){
+            Taken = val[ind] + knapsackh(wt,val,ind-1,W-wt[ind],dp);
+        }
+        dp[ind][W] = Math.max(Taken,notTaken);
+        return dp[ind][W];
+    }
+    //Function to return max value that can be put in knapsack of capacity W.
+    static int knapSack(int W, int wt[], int val[], int n) 
+    { 
+         int dp[][] = new int[n][W+1];
+         for(int rows[]:dp){
+             Arrays.fill(rows,-1);
+         }
+         return knapsackh(wt,val,n-1,W,dp);
+    } 
+}
