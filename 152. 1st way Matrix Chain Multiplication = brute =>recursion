@@ -1,0 +1,17 @@
+class Solution{
+    static int f(int i , int j , int arr[]){
+        if(i==j) return 0;
+        int mini = Integer.MAX_VALUE;
+        for(int k=i;k<=j-1;k++){
+            int path = arr[i-1]*arr[k]*arr[j] + f(i,k,arr) + f(k+1,j,arr);
+            mini = Math.min(mini,path);
+        }
+        return mini;
+    }
+    static int matrixMultiplication(int N, int arr[])
+    {
+        int i = 1;
+        int j = N-1;
+        return f(i,j,arr);
+    }
+}
