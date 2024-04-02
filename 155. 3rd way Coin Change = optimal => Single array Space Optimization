@@ -1,0 +1,21 @@
+class Solution {
+    public long count(int coins[], int N, int sum) {
+        long prev[] = new long[sum+1];
+        for(int i=0;i<=sum;i++){
+            if(i%coins[0]==0)
+            prev[i]=1;
+        }
+        for(int ind=1;ind<N;ind++){
+            long cur[] = new long[sum+1];
+            for(int target=0;target<=sum;target++){
+                long notTaken = prev[target];
+                long Taken = 0;
+                if(coins[ind]<=target)
+                Taken = cur[target-coins[ind]];
+                cur[target] = Taken + notTaken;
+            }
+            prev = cur;
+        }
+        return prev[sum];
+    }
+}
