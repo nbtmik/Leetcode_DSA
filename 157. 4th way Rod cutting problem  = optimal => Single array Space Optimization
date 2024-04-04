@@ -1,0 +1,22 @@
+public class Solution {
+	public static int cutRod(int price[], int n) {
+		int prev[] = new int[n+1];
+		int cur[] = new int[n+1];
+		for(int N=0;N<=n;N++){
+			prev[N] = N*price[0];
+		}
+		for(int ind=1;ind<n;ind++){
+			for(int N=0;N<=n;N++){
+				int notTaken = prev[N];
+				int Taken = Integer.MIN_VALUE;
+				int rodlen = ind+1;
+				if(rodlen<=N){
+					Taken =price[ind] + cur[N-rodlen];
+				}
+				cur[N] = Math.max(Taken, notTaken);
+			}
+			prev=cur;
+		}
+		return prev[n];
+	}
+}
