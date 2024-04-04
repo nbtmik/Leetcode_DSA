@@ -1,0 +1,17 @@
+public class Solution {
+	public static int f(int ind , int N, int price[]){
+		if(ind==0){
+			return (N* price[0]);
+		}
+		int notTaken = f(ind-1,N,price);
+		int Taken = Integer.MIN_VALUE;
+		int rodlen = ind + 1;
+		if(rodlen<=N) {
+			Taken = price[ind] + f(ind,N-rodlen,price);
+		}
+		return Math.max(Taken, notTaken);
+	}
+	public static int cutRod(int price[], int n) {
+		return f(n-1,n,price);
+	}
+}
