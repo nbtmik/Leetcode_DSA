@@ -1,0 +1,73 @@
+// import java.util.* ;
+// import java.io.*; 
+// import java.util.ArrayList;
+
+// public class Solution {
+
+//     public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+//         int missing=-1 , repeating =-1;
+//         for(int i=1;i<=n;i++){
+//             int cnt=0;
+//             for(int j=0;j<n;j++){
+//                 if(arr.get(j)==i) cnt++;
+//             }
+//             if(cnt==2) repeating=i;
+//             if(cnt==0) missing=i;
+
+//                 if(repeating !=-1 && missing !=-1)
+//                 break;
+//         }
+
+//     int[] ans = {missing,repeating};
+//     return ans;
+// }
+// }
+
+// import java.util.* ;
+// import java.io.*; 
+// import java.util.ArrayList;
+
+// public class Solution {
+
+//     public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+//         int missing=-1 , repeating =-1;
+//         int hash[] = new int[n+1];
+//         for(int i=0;i<n;i++){
+//             hash[arr.get(i)]++;
+//         }
+//         for(int i=1;i<=n;i++){
+//             if(hash[i]==2) repeating=i;
+//             if(hash[i]==0) missing=i;
+
+//             if(repeating !=-1 && missing !=-1){
+//                 break;
+//             }
+//         }
+//         int ans[] = {missing,repeating};
+//         return ans;
+//     }
+// }
+
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+        long  sn = (n*(n+1))/2;
+        long s2n = (n*(n+1)*(2*n+1))/6;
+        long s=0,s2=0;
+        for(int i=0;i<n;i++){
+            s+=arr.get(i);
+            s2+=(long)arr.get(i) * (long)arr.get(i);
+        }
+        long val1=s-sn;
+        long val2=s2-s2n;
+        val2=val2/val1;
+        long x= (val1+val2)/2;
+        long y=x-val1;
+        int ans[]={(int)y,(int)x};
+        return ans;
+    }
+}
