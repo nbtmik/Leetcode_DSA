@@ -1,0 +1,57 @@
+// class Solution {
+//     public int[] twoSum(int[] nums, int target) {
+//         int n= nums.length;
+//         int ans[]= new int[2];
+//         for(int i=0;i<n;i++){
+//             for(int j=i+1;j<n;j++){
+//                 if(nums[i]+nums[j]==target){
+//                     ans[0]=i;
+//                     ans[1]=j;
+//                     return ans;
+//                 }
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+// class Solution {
+//     public int[] twoSum(int[] nums, int target) {
+//         int n= nums.length;
+//         int ans[]= new int[2];
+//         ans[0]=ans[1]=-1;
+//         HashMap<Integer,Integer> map = new HashMap<>();
+//         for(int i=0;i<n;i++){
+//             int num = nums[i];
+//             int num1 = target - num;
+//             if(map.containsKey(num1)){
+//                 ans[0]=map.get(num1);
+//                 ans[1]=i;
+//                 return ans;
+//             }map.put(nums[i],i);
+//         }return ans;
+//     }
+// }
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int n= nums.length;
+        int ans[]= new int[2];
+        ans[0]=ans[1]=-1;
+        Arrays.sort(nums);
+        int left=0, right=n-1;
+        while(left<right){
+            int sum=nums[left]+nums[right];
+            if(sum==target){
+                ans[0]=left;
+                ans[1]=right;
+                return ans;
+            }
+            else if(sum<target){
+                 left++;
+            }
+            else right--;
+        }
+        return ans;
+    }
+}
