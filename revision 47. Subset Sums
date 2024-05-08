@@ -1,0 +1,16 @@
+class Solution {
+    void func(int ind,int sum,ArrayList<Integer> arr, ArrayList<Integer> sumSubset,int N){
+        if(ind==N){
+        sumSubset.add(sum);
+        return;
+        }
+        func(ind+1,sum+arr.get(ind),arr,sumSubset,N);
+        func(ind+1,sum,arr,sumSubset,N);
+    }
+    ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int n) {
+        ArrayList<Integer> sumSubset=new ArrayList<>();
+        func(0,0,arr,sumSubset,n);
+        Collections.sort(sumSubset);
+        return sumSubset;
+    }
+}
