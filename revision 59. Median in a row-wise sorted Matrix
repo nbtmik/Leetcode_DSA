@@ -1,0 +1,32 @@
+class Solution {
+    public int countsmallerthenmid(int A[],int mid, int n){
+        int l=0,h=n-1;
+        while(l<=h){
+            int md=(l+h)/2;
+            if(A[md]<=mid){
+                l=md+1;
+            }else{
+                h=md-1;
+            }
+        }
+        return l;
+    }
+    int median(int matrix[][], int row, int col) {
+        int low=1;
+        int high=1000000000;
+        int n=row;
+        int m=col;
+        while(low<=high){
+            int mid = (low+high)/2;
+            int cnt=0;
+            for(int i=0;i<n;i++){
+                cnt += countsmallerthenmid(matrix[i],mid,col);
+            }
+            if(cnt<=(n*m)/2)
+            low=mid+1;
+            else
+            high=mid-1;
+        }
+        return low;
+    }
+}
