@@ -1,0 +1,37 @@
+public class Solution {
+    public int count(ArrayList<Integer> A,int page){
+        int n=A.size();
+        int students=1;
+        long pagesStudent = 0; 
+        for(int i=0;i<n;i++){
+            if(pagesStudent + A.get(i) <= page){
+                pagesStudent+= A.get(i);
+            }else{
+                students++;
+                pagesStudent = A.get(i);
+            }
+        }
+        return students;
+    }
+    public int books(ArrayList<Integer> A, int B) {
+        int n=A.size();
+        if(B>n){
+            return -1;
+        }
+        int low=Collections.min(A);
+        int high=0;
+        for(int i=0;i<n;i++){
+            high+=A.get(i);
+        }
+        while(low<=high){
+            int mid=(low+high)/2;
+            int students = count(arr,mid);
+                if(students>B){
+                    low=mid+1;
+                }else{
+                    high=mid-1;
+                }
+        }
+        return low;
+    }
+}
