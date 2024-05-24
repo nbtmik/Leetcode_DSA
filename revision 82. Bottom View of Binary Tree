@@ -1,0 +1,54 @@
+class Pair<T1, T2> {
+    private T1 key;
+    private T2 value;
+
+    public Pair(T1 key, T2 value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public T1 getKey() {
+        return key;
+    }
+
+    public T2 getValue() {
+        return value;
+    }
+}
+
+
+class Solution {
+    // Function to return a list containing the bottom view of the given tree.
+    public ArrayList<Integer> bottomView(Node root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+
+        Map<Integer, Integer> mpp = new TreeMap<>();
+        Queue<Pair<Node, Integer>> q = new LinkedList<>();
+        q.add(new Pair<>(root, 0));
+
+        while (!q.isEmpty()) {
+            Pair<Node, Integer> pair = q.poll();
+            Node node = pair.getKey();
+            int line = pair.getValue();
+            mpp.put(line, node.data);
+
+            // left
+            if (node.left != null) {
+                q.add(new Pair<>(node.left, line - 1));
+            }
+            // right
+            if (node.right != null) {
+                q.add(new Pair<>(node.right, line + 1));
+            }
+        }
+
+        for (Map.Entry<Integer, Integer> entry : mpp.entrySet()) {
+            ans.add(entry.getValue());
+        }
+
+        return ans;
+    }
+}
