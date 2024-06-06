@@ -1,0 +1,27 @@
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        List<Integer> sort = new ArrayList<>();
+        inorder(root,sort);
+        int left=0;
+        int right=sort.size()-1;
+        while(left<right){
+            int sum=sort.get(left)+sort.get(right);
+            if(sum==k){
+                return true;
+            } else if(sum>k){
+                right--;
+            }else{
+                left++;
+            }
+        }
+        return false;
+    }
+    public void inorder(TreeNode root, List<Integer> sort){
+        if(root==null){
+            return;
+        }
+        inorder(root.left,sort);
+        sort.add(root.val);
+        inorder(root.right,sort);
+    }
+}
