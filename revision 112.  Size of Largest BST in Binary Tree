@@ -1,0 +1,41 @@
+class NodeValue {
+    int minNode, maxNode, maxSize;
+
+    NodeValue(int minNode, int maxNode, int maxSize) {
+        this.minNode = minNode;
+        this.maxNode = maxNode;
+        this.maxSize = maxSize;
+    }
+}
+public class Solution {
+
+    private static NodeValue largestBSThelp(TreeNode root) {
+        if (root == null) {
+            // If the node is null, it represents a valid BST with size 0
+            return new NodeValue(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+        }
+
+        NodeValue left = largestBSThelp(root.left);
+        NodeValue right = largestBSThelp(root.right);
+
+
+        if (left.maxNode < root.data && root.data < right.minNode) {
+            // It's a valid BST
+            return new NodeValue(
+                Math.min(root.data, left.minNode), // Update the min value
+                Math.max(root.data, right.maxNode), // Update the max value
+                left.maxSize + right.maxSize + 1    // Update the size
+            );
+        }
+
+        return new NodeValue(
+            Integer.MIN_VALUE,
+            Integer.MAX_VALUE,
+            Math.max(left.maxSize, right.maxSize) 
+        );
+    }
+
+    public static int largestBST(TreeNode root) {
+        return largestBSThelp(root).maxSize;
+    }
+}
