@@ -1,0 +1,38 @@
+import java.util.Arrays;
+
+// public class Solution {
+// 	public static int f(int ind,int prev_ind,int arr[],int n){
+// 		if(ind==n) return 0;
+// 		int len= 0+f(ind+1,prev_ind,arr,n);
+// 		if(prev_ind==-1||arr[ind]>arr[prev_ind]){
+// 			len= Math.max(len,1+f(ind+1,ind,arr,n));
+// 		}
+// 		return len;
+// 	}
+// 	public static int longestIncreasingSubsequence(int arr[]) {
+// 		int n= arr.length;
+// 		return f(0,-1,arr,n);
+// 	}
+
+// }
+
+public class Solution {
+	public static int f(int ind,int prev_ind,int arr[],int n,int dp[][]){
+		if(ind==n) return 0;
+		if(dp[ind][prev_ind+1] !=-1) return dp[ind][prev_ind+1];
+		int len= 0+f(ind+1,prev_ind,arr,n,dp);
+		if(prev_ind==-1||arr[ind]>arr[prev_ind]){
+			len= Math.max(len,1+f(ind+1,ind,arr,n,dp));
+		}
+		return dp[ind][prev_ind+1]=len;
+	}
+	public static int longestIncreasingSubsequence(int arr[]) {
+		int n= arr.length;
+		int dp[][]=new int[n][n+1];
+		for(int row[]:dp){
+			Arrays.fill(row, -1);
+		}
+		return f(0,-1,arr,n,dp);
+	}
+
+}
