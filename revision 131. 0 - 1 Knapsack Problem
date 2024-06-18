@@ -1,0 +1,80 @@
+// class Solution 
+// { 
+//     static int f(int wt[],int val[], int n, int W){
+//         if(n==0){
+//             if(wt[0]<=W){
+//                 return val[0];
+//             }else{
+//                 return 0;
+//             }
+//         }
+//         int notTaken = 0 + f(wt,val,n-1,W);
+//         int taken = Integer.MIN_VALUE;
+        
+//         if(wt[n]<=W){
+//             taken = val[n] + f(wt,val,n-1,W-wt[n]);
+//         }
+//         return Math.max(notTaken,taken);
+//     }
+//     //Function to return max value that can be put in knapsack of capacity W.
+//     static int knapSack(int W, int wt[], int val[], int n) 
+//     { 
+//          return f(wt,val,n-1,W); 
+//     } 
+// }
+
+
+// class Solution 
+// { 
+//     static int f(int wt[],int val[], int n, int W,int dp[][]){
+//         if(n==0){
+//             if(wt[0]<=W){
+//                 return val[0];
+//             }else{
+//                 return 0;
+//             }
+//         }
+//         if(dp[n][W]!=-1) return dp[n][W];
+        
+//         int notTaken = 0 + f(wt,val,n-1,W,dp);
+//         int taken = Integer.MIN_VALUE;
+        
+//         if(wt[n]<=W){
+//             taken = val[n] + f(wt,val,n-1,W-wt[n],dp);
+//         }
+//         return dp[n][W]=Math.max(notTaken,taken);
+        
+//     }
+//     //Function to return max value that can be put in knapsack of capacity W.
+//     static int knapSack(int W, int wt[], int val[], int n) 
+//     { 
+//          int dp[][] = new int[n][W+1];
+//          for(int row[]:dp){
+//              Arrays.fill(row,-1);
+//          }
+//          return f(wt,val,n-1,W,dp);
+//     } 
+// }
+
+class Solution 
+{ 
+    //Function to return max value that can be put in knapsack of capacity W.
+    static int knapSack(int W, int wt[], int val[], int n) 
+    { 
+         int dp[][] = new int[n][W+1];
+         for(int i=wt[0];i<=W;i++){
+             dp[0][i]=val[0];
+         }
+         for( int i=1;i<n;i++){
+             for(int cur=0;cur<=W;cur++){
+                 int notTaken = dp[i-1][cur];
+                 int taken = Integer.MIN_VALUE;
+                 if(wt[i]<=cur){
+                     taken = val[i] + dp[i-1][cur-wt[i]];
+                 }
+                 dp[i][cur]= Math.max(notTaken,taken);
+             }
+         }
+         return dp[n-1][W];
+    } 
+}
